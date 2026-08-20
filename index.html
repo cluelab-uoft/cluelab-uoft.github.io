@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLUE Lab | University of Toronto Scarborough</title>
+<meta name="description" content="CLUE Lab (Computational Linguistics for Understanding and Explanation), directed by Dr. Shohini Bhattasali, University of Toronto Scarborough.">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --eggshell: #F4F1E8;
+    --eggshell-deep: #E9E4D3;
+    --sage: #92A481;
+    --sage-deep: #4B5A45;
+    --sage-mid: #6B7A5E;
+    --sage-line: #C6CEBB;
+    --ink: #2B2F27;
+    --ink-soft: #565f51;
+    --max: 1080px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background: var(--eggshell);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    color: var(--sage-deep);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  a{ color: var(--sage-mid); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--sage-deep);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sage-mid);
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(244,241,232,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--sage-line);
+  }
+  .nav-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .nav-brand{
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--sage-deep);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo{
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .nav-brand span{
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: 11px;
+    color: var(--sage-mid);
+    letter-spacing: 0.04em;
+  }
+  .nav-links{
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-links a{
+    color: var(--ink);
+  }
+  .nav-links a:hover{ color: var(--sage-deep); text-decoration: none; border-bottom: 2px solid var(--sage);}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position: relative;
+    overflow: hidden;
+    padding: 90px 0 70px;
+    border-bottom: 1px solid var(--sage-line);
+  }
+  .hero-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-motif{
+    position: absolute;
+    top: 0; right: -60px;
+    width: 560px;
+    max-width: 60vw;
+    height: auto;
+    opacity: 0.9;
+    z-index: 1;
+  }
+  .hero h1{
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.04;
+    max-width: 760px;
+  }
+  .hero .full-name{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--sage-deep);
+  }
+  .hero-tagline{
+    margin-top: 22px;
+    max-width: 560px;
+    font-size: 18px;
+    color: var(--ink-soft);
+  }
+  .hero-meta{
+    margin-top: 34px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    display: inline-block;
+    padding: 11px 22px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-solid{
+    background: var(--sage-deep);
+    color: var(--eggshell);
+  }
+  .btn-solid:hover{ background: var(--sage-mid); text-decoration:none; }
+  .btn-outline{
+    border: 1.5px solid var(--sage-deep);
+    color: var(--sage-deep);
+  }
+  .btn-outline:hover{ background: var(--sage-deep); color: var(--eggshell); text-decoration:none; }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{
+    padding: 76px 0;
+    border-bottom: 1px solid var(--sage-line);
+  }
+  section:last-of-type{ border-bottom: none; }
+  .section-head{
+    max-width: 640px;
+    margin-bottom: 44px;
+  }
+  .section-head h2{
+    font-size: clamp(28px, 3.4vw, 38px);
+  }
+  .section-head p{
+    color: var(--ink-soft);
+    margin-top: 12px;
+    font-size: 16px;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 42px;
+    align-items: start;
+  }
+  .pi-photo{
+    width: 200px;
+    height: 200px;
+    border-radius: 4px;
+    object-fit: cover;
+    background: var(--eggshell-deep);
+    border: 1px solid var(--sage-line);
+  }
+  .about-text p{ margin-bottom: 14px; color: var(--ink); }
+  .about-text .pi-name{
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--sage-deep);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .about-text .pi-title{
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  /* ---------- RESEARCH ---------- */
+  .theme-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .theme-card{
+    background: var(--eggshell-deep);
+    border: 1px solid var(--sage-line);
+    border-radius: 6px;
+    padding: 30px 28px;
+  }
+  .theme-card h3{
+    font-size: 21px;
+    margin-bottom: 12px;
+  }
+  .theme-card p{
+    color: var(--ink-soft);
+    font-size: 15px;
+    margin-bottom: 18px;
+  }
+  .projects-placeholder{
+    border-top: 1px dashed var(--sage);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .projects-placeholder .eyebrow{ margin-bottom: 8px; }
+  .placeholder-item{
+    font-size: 14px;
+    color: var(--sage-mid);
+    font-style: italic;
+    padding: 4px 0;
+  }
+
+  /* ---------- PEOPLE ---------- */
+  .people-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 22px;
+  }
+  .person-card{
+    text-align: left;
+  }
+  .person-photo{
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    background: var(--eggshell-deep);
+    border: 1px solid var(--sage-line);
+    margin-bottom: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--sage);
+    font-family:'IBM Plex Mono',monospace;
+    font-size: 11px;
+    text-align:center;
+    padding: 8px;
+  }
+  .person-name{
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--sage-deep);
+  }
+  .person-role{
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .people-note{
+    margin-top: 30px;
+    padding: 18px 20px;
+    background: var(--eggshell-deep);
+    border-left: 3px solid var(--sage);
+    border-radius: 3px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .people-note code{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: var(--eggshell);
+    padding: 2px 5px;
+    border-radius: 2px;
+  }
+
+  /* ---------- PUBLICATIONS ---------- */
+  .pub-list{ list-style: none; }
+  .pub-item{
+    padding: 20px 0;
+    border-top: 1px solid var(--sage-line);
+  }
+  .pub-item:last-child{ border-bottom: 1px solid var(--sage-line); }
+  .pub-title{
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .pub-authors{
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .pub-authors .pi{
+    color: var(--sage-deep);
+    font-weight: 600;
+  }
+  .pub-venue{
+    font-size: 13px;
+    color: var(--sage-mid);
+    font-style: italic;
+  }
+  .pub-links a{
+    font-size: 13px;
+    margin-right: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .pubs-more{
+    margin-top: 24px;
+    font-size: 14px;
+  }
+
+  /* ---------- FUNDING ---------- */
+  .funding-list{ list-style: none; }
+  .funding-item{
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 20px;
+    padding: 16px 0;
+    border-top: 1px solid var(--sage-line);
+    font-size: 14px;
+  }
+  .funding-item:last-child{ border-bottom: 1px solid var(--sage-line); }
+  .funding-year{
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--sage-mid);
+    font-size: 13px;
+  }
+  .funding-detail strong{ color: var(--sage-deep); }
+
+  /* ---------- JOIN ---------- */
+  .join-box{
+    background: var(--sage-deep);
+    color: var(--eggshell);
+    border-radius: 8px;
+    padding: 44px 40px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 40px;
+  }
+  .join-box h2{ color: var(--eggshell); }
+  .join-box .eyebrow{ color: var(--sage-line); }
+  .join-box p{ color: #DCE3D2; margin-top: 14px; font-size: 15px; }
+  .join-list{ list-style: none; margin-top: 18px; }
+  .join-list li{
+    padding: 8px 0 8px 20px;
+    position: relative;
+    font-size: 14px;
+    color: #DCE3D2;
+    border-top: 1px solid rgba(244,241,232,0.15);
+  }
+  .join-list li:before{
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--sage);
+  }
+  .join-box .btn-solid{
+    background: var(--eggshell);
+    color: var(--sage-deep);
+  }
+  .join-box .btn-solid:hover{ background: var(--eggshell-deep); }
+
+  /* ---------- NEWS ---------- */
+  .news-list{ list-style: none; }
+  .news-item{
+    padding: 16px 0;
+    border-top: 1px solid var(--sage-line);
+    font-size: 15px;
+    display: flex;
+    gap: 16px;
+  }
+  .news-item:last-child{ border-bottom: 1px solid var(--sage-line); }
+  .news-tag{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--sage-mid);
+    white-space: nowrap;
+    padding-top: 3px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background: var(--sage-deep);
+    color: var(--eggshell);
+    padding: 50px 0 30px;
+  }
+  .footer-grid{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 36px;
+  }
+  footer h4{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage-line);
+    margin-bottom: 14px;
+  }
+  footer p, footer a{
+    color: #DCE3D2;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  footer a:hover{ color: var(--eggshell); }
+  .footer-logo{
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 14px;
+  }
+  .footer-brand{
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--eggshell);
+    margin-bottom: 10px;
+  }
+  .footer-bottom{
+    border-top: 1px solid rgba(244,241,232,0.2);
+    padding-top: 20px;
+    font-size: 13px;
+    color: var(--sage-line);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity: 1; transform: none; transition: none; }
+    html{ scroll-behavior: auto; }
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 760px){
+    .about-grid{ grid-template-columns: 1fr; }
+    .pi-photo{ width: 140px; height: 140px; }
+    .theme-grid{ grid-template-columns: 1fr; }
+    .join-box{ grid-template-columns: 1fr; padding: 32px 24px; }
+    .footer-grid{ grid-template-columns: 1fr; gap: 24px; }
+    .funding-item{ grid-template-columns: 70px 1fr; }
+    .hero-motif{ opacity: 0.35; right: -120px; }
+    .footer-bottom{ flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand"><img src="logo.png" alt="CLUE Lab logo" class="nav-logo">CLUE Lab <span>UNIVERSITY OF TORONTO SCARBOROUGH</span></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#people">People</a>
+      <a href="#publications">Publications</a>
+      <a href="#join">Join Us</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="hero-motif" viewBox="0 0 500 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- syntax tree, left side -->
+    <g stroke="#92A481" stroke-width="1.6" opacity="0.9">
+      <line x1="140" y1="40" x2="80" y2="95"/>
+      <line x1="140" y1="40" x2="200" y2="95"/>
+      <line x1="80" y1="95" x2="50" y2="150"/>
+      <line x1="80" y1="95" x2="110" y2="150"/>
+      <line x1="200" y1="95" x2="170" y2="150"/>
+      <line x1="200" y1="95" x2="230" y2="150"/>
+    </g>
+    <g fill="#4B5A45" font-family="IBM Plex Mono" font-size="10">
+      <text x="128" y="34">S</text>
+      <text x="68" y="90">NP</text>
+      <text x="188" y="90">VP</text>
+      <text x="34" y="146">Det</text>
+      <text x="98" y="146">N</text>
+      <text x="158" y="146">V</text>
+      <text x="220" y="146">NP</text>
+    </g>
+    <circle cx="140" cy="40" r="3" fill="#4B5A45"/>
+    <circle cx="80" cy="95" r="3" fill="#4B5A45"/>
+    <circle cx="200" cy="95" r="3" fill="#4B5A45"/>
+    <circle cx="50" cy="150" r="2.4" fill="#92A481"/>
+    <circle cx="110" cy="150" r="2.4" fill="#92A481"/>
+    <circle cx="170" cy="150" r="2.4" fill="#92A481"/>
+    <circle cx="230" cy="150" r="2.4" fill="#92A481"/>
+
+    <!-- transition threads dissolving into waveform -->
+    <path d="M50,150 C60,210 90,230 120,250" stroke="#C6CEBB" stroke-width="1.2" fill="none"/>
+    <path d="M110,150 C115,205 130,225 155,248" stroke="#C6CEBB" stroke-width="1.2" fill="none"/>
+    <path d="M170,150 C175,205 190,225 215,248" stroke="#C6CEBB" stroke-width="1.2" fill="none"/>
+    <path d="M230,150 C245,210 260,230 260,250" stroke="#C6CEBB" stroke-width="1.2" fill="none"/>
+
+    <!-- waveform / neural signal, lower right -->
+    <path d="M40,300 L60,300 L75,260 L95,340 L115,280 L135,320 L155,300 L175,300 L190,270 L210,330 L230,295 L250,305 L270,300 L460,300"
+          stroke="#4B5A45" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+    <path d="M40,340 L60,340 L72,320 L88,360 L104,330 L120,350 L140,340 L400,340"
+          stroke="#92A481" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+  </svg>
+
+  <div class="hero-inner">
+    <span class="eyebrow">Computational Linguistics for Understanding &amp; Explanation</span>
+    <h1>Finding the <span class="full-name">clues</span> language leaves in the mind, and in society.</h1>
+    <p class="hero-tagline">
+      The CLUE Lab studies how people comprehend language — and how that comprehension can be modeled, measured, and put to use — by combining computational tools with the cognitive science of language.
+    </p>
+    <div class="hero-meta">
+      <a href="#research" class="btn btn-solid">Explore our research</a>
+      <a href="#join" class="btn btn-outline">Join the lab</a>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">About</span>
+      <h2>Our mission</h2>
+      <p>CLUE Lab takes a theory-driven, experimental approach to language science — integrating computational linguistics with the cognitive science of language to understand how humans use, process, and are affected by language, and to explain what our models reveal.</p>
+    </div>
+    <div class="about-grid">
+      <img class="pi-photo" src="https://sbhattasali.github.io/images/shohini_umd_square.jpg" alt="Photo of Dr. Shohini Bhattasali">
+      <div class="about-text">
+        <div class="pi-name">Shohini Bhattasali, PhD</div>
+        <div class="pi-title">Principal Investigator · Assistant Professor, Department of Language Studies &amp; Department of Linguistics, University of Toronto Scarborough</div>
+        <p>Dr. Bhattasali received her PhD in Linguistics from Cornell University (2019, graduate minor in Cognitive Science), advised by John Hale. She was subsequently a postdoctoral researcher at the University of Maryland's Department of Linguistics and Institute for Advanced Computer Studies, working primarily with Philip Resnik.</p>
+        <p>Her research sits at the intersection of computational linguistics and the cognitive science of language, and has been supported by grants including a UofT Data Sciences Institute Catalyst Grant.</p>
+        <p><a href="https://sbhattasali.github.io/docs/cv_august2023.pdf">Full CV (PDF) →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Research</span>
+      <h2>Two lines of inquiry, one question</h2>
+      <p>How do humans use and understand language — and how can computational tools help us model, and improve, that process?</p>
+    </div>
+    <div class="theme-grid">
+      <div class="theme-card">
+        <h3>Computational Neurolinguistics</h3>
+        <p>We use contemporary computational models to gain insight into language comprehension in the brain — sitting at the interface of natural language processing, psycholinguistics, and cognitive neuroscience. Current questions include how syntactic and semantic constraints shape top-down prediction during sentence processing, and how linguistic processing interacts with attention, memory, and cognitive control.</p>
+        <div class="projects-placeholder">
+          <span class="eyebrow">Current projects</span>
+          <div class="placeholder-item">— Add project name, short description, and status/funding here —</div>
+          <div class="placeholder-item">— Add project name, short description, and status/funding here —</div>
+        </div>
+      </div>
+      <div class="theme-card">
+        <h3>Computational Social Science</h3>
+        <p>We examine how linguistic patterns and features in real-world datasets can help uncover bias and misinformation, using NLP tools such as topic models and language models on text from domains like social media and public health repositories — aiming to help improve these systems.</p>
+        <div class="projects-placeholder">
+          <span class="eyebrow">Current projects</span>
+          <div class="placeholder-item">— Add project name, short description, and status/funding here —</div>
+          <div class="placeholder-item">— Add project name, short description, and status/funding here —</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="people" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">People</span>
+      <h2>Lab members</h2>
+      <p>CLUE Lab is a small, interdisciplinary group of graduate students, undergraduate researchers, and collaborators.</p>
+    </div>
+    <div class="people-grid">
+      <div class="person-card">
+        <img class="person-photo" src="https://sbhattasali.github.io/images/shohini_umd_square.jpg" alt="Photo of Shohini Bhattasali" style="object-fit:cover;">
+        <div class="person-name">Shohini Bhattasali</div>
+        <div class="person-role">Principal Investigator</div>
+      </div>
+      <div class="person-card">
+        <div class="person-photo">PHOTO</div>
+        <div class="person-name">Add name</div>
+        <div class="person-role">Add role, e.g. PhD student</div>
+      </div>
+      <div class="person-card">
+        <div class="person-photo">PHOTO</div>
+        <div class="person-name">Add name</div>
+        <div class="person-role">Add role, e.g. RA</div>
+      </div>
+      <div class="person-card">
+        <div class="person-photo">PHOTO</div>
+        <div class="person-name">Add name</div>
+        <div class="person-role">Add role</div>
+      </div>
+    </div>
+    <div class="people-note">
+      Duplicate the <code>.person-card</code> block to add each member (current members, plus an "Alumni" subheading for past members and where they went — useful for both prospective students and grant reviewers).
+    </div>
+  </div>
+</section>
+
+<section id="publications" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Publications</span>
+      <h2>Selected publications</h2>
+      <p>For a complete list, see the full <a href="https://sbhattasali.github.io/docs/cv_august2023.pdf">CV</a> or <a href="https://scholar.google.com/citations?user=UKCKPV0AAAAJ&hl=en">Google Scholar</a>.</p>
+    </div>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <div class="pub-title">Le Petit Prince multilingual naturalistic fMRI corpus</div>
+        <div class="pub-authors">Jixing Li, <span class="pi">Shohini Bhattasali</span>, Shulin Zhang, Berta Franzluebbers, Wen-Ming Luh, R. Nathan Spreng, Jonathan Brennan, Yiming Yang, Christophe Pallier, John Hale</div>
+        <div class="pub-venue">Scientific Data, 9(1), 1–15</div>
+        <div class="pub-links">
+          <a href="https://www.nature.com/articles/s41597-022-01625-7">paper</a>
+          <a href="https://openneuro.org/datasets/ds003643/versions/1.0.2">data</a>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-title">Parallel processing in speech perception with local and global representations of linguistic context</div>
+        <div class="pub-authors">Christian Brodbeck, <span class="pi">Shohini Bhattasali</span>, Aura Cruz Heredia, Philip Resnik, Ellen Lau, Jonathan Simon</div>
+        <div class="pub-venue">eLife, 11: e72056</div>
+        <div class="pub-links">
+          <a href="https://elifesciences.org/articles/72056">paper</a>
+          <a href="https://doi.org/10.5061/dryad.nvx0k6dv0">data</a>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-title">Neural correlates of object-extracted relative clause processing across English and Chinese</div>
+        <div class="pub-authors">Donald Dunagan, Milos Stanojevic, Maximin Coavoux, Shulin Zhang, <span class="pi">Shohini Bhattasali</span>, Jixing Li, Jonathan Brennan, John Hale</div>
+        <div class="pub-venue">Neurobiology of Language</div>
+        <div class="pub-links"><a href="https://doi.org/10.1162/nol_a_00110">paper</a></div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-title">Neurocomputational models of language processing</div>
+        <div class="pub-authors">John Hale, Luca Campanelli, Jixing Li, <span class="pi">Shohini Bhattasali</span>, Christophe Pallier, Jonathan Brennan</div>
+        <div class="pub-venue">Annual Review of Linguistics, 8(1), 427–446</div>
+        <div class="pub-links"><a href="https://www.annualreviews.org/doi/abs/10.1146/annurev-linguistics-051421-020803">paper</a></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="funding" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Funding</span>
+      <h2>Grants &amp; support</h2>
+    </div>
+    <ul class="funding-list">
+      <li class="funding-item">
+        <span class="funding-year">2023</span>
+        <div class="funding-detail"><strong>Catalyst Grant</strong> — UofT Data Sciences Institute. Community-powered AI to identify and counter harmful content on social media. <a href="https://datasciences.utoronto.ca/data-sciences-institute-catalyst-grant-fuels-u-of-t-researchers-community-powered-ai-to-tackle-harmful-content-on-social-media/">Read more →</a></div>
+      </li>
+      <li class="funding-item">
+        <span class="funding-year">—</span>
+        <div class="funding-detail" style="color:var(--sage-mid); font-style:italic;">Add additional grants: funder, role (PI/Co-I), amount, and dates.</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="join" class="reveal">
+  <div class="wrap">
+    <div class="join-box">
+      <div>
+        <span class="eyebrow">Join the lab</span>
+        <h2>We're looking for curious, careful researchers.</h2>
+        <p>CLUE Lab welcomes graduate applicants through the UofT Linguistics and Computational Linguistics programs, as well as undergraduate research assistants at UTSC. We value strong quantitative or programming skills, curiosity about language and the mind, and careful experimental practice.</p>
+      </div>
+      <div>
+        <ul class="join-list">
+          <li>Prospective graduate students: email Dr. Bhattasali with your CV and research interests before applying to the program</li>
+          <li>Undergraduate RAs: openings posted here each term</li>
+          <li>Currently recruiting: <em>update this line each term</em></li>
+        </ul>
+        <div style="margin-top:22px;">
+          <a href="mailto:shohini.bhattasali@utoronto.ca?subject=CLUE%20Lab%20Inquiry" class="btn btn-solid">Email the lab</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="news" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">News &amp; Media</span>
+      <h2>Recent news</h2>
+    </div>
+    <ul class="news-list">
+      <li class="news-item">
+        <span class="news-tag">FEATURE</span>
+        <span><a href="https://datasciences.utoronto.ca/data-sciences-institute-catalyst-grant-fuels-u-of-t-researchers-community-powered-ai-to-tackle-harmful-content-on-social-media/">UofT Data Sciences Institute: Catalyst Grant fuels community-powered AI to tackle harmful content on social media</a></span>
+      </li>
+      <li class="news-item">
+        <span class="news-tag">Q&amp;A</span>
+        <span><a href="https://www.utsc.utoronto.ca/vpdean/5q-shohini-bhattasali-assistant-professor-language-studies">UTSC Vice-Principal Academic &amp; Dean: 5Q with Shohini Bhattasali</a></span>
+      </li>
+      <li class="news-item">
+        <span class="news-tag">PROFILE</span>
+        <span><a href="http://utlinguistics.blogspot.com/2022/08/newest-faculty-member-shohini-bhattasali.html">UofT Linguistics blog: Newest Faculty Member, Shohini Bhattasali</a></span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img src="logo.png" alt="CLUE Lab logo" class="footer-logo">
+        <div class="footer-brand">CLUE Lab</div>
+        <p>Computational Linguistics for Understanding and Explanation<br>Department of Language Studies &amp; Department of Linguistics<br>University of Toronto Scarborough</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <p>MW 313<br>1265 Military Trail<br>Toronto, ON M1C 1A4<br><a href="https://map.utoronto.ca/?id=1809#!m/493669?s/">Campus map →</a></p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>
+          <a href="mailto:shohini.bhattasali@utoronto.ca">shohini.bhattasali@utoronto.ca</a><br>
+          <a href="https://twitter.com/shohini_tahini">Twitter / X</a><br>
+          <a href="https://sbhattasali.github.io/docs/cv_august2023.pdf">CV (PDF)</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© CLUE Lab, University of Toronto Scarborough</span>
+      <span>Site directed by Shohini Bhattasali</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
