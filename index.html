@@ -201,6 +201,27 @@
     font-size: 16px;
   }
 
+  /* ---------- NEWS BAND (highlighted) ---------- */
+  .news-band{
+    background: var(--eggshell-deep);
+    border-top: 1px solid var(--sage-line);
+    border-bottom: 1px solid var(--sage-line);
+    padding: 44px 0 50px;
+  }
+  .news-band-head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .news-band-head .eyebrow{ margin-bottom: 0; }
+  .news-band-head h2{ font-size: 22px; margin-top: 4px; width: 100%; }
+  .news-band .news-list{ margin-top: 18px; }
+  .news-band .news-item{ border-top-color: var(--sage-line); }
+  .news-band .news-item:first-child{ border-top: none; padding-top: 0; }
+
   /* ---------- ABOUT ---------- */
   .about-grid{
     display: grid;
@@ -235,6 +256,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
+  }
+  .theme-grid-3{
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 900px){
+    .theme-grid-3{ grid-template-columns: 1fr 1fr; }
   }
   .theme-card{
     background: var(--eggshell-deep);
@@ -298,6 +325,14 @@
     font-size: 13px;
     color: var(--ink-soft);
   }
+  .people-subhead{
+    font-size: 18px;
+    color: var(--sage-deep);
+    margin: 40px 0 20px;
+    padding-top: 24px;
+    border-top: 1px solid var(--sage-line);
+  }
+  .people-grid + .people-subhead{ margin-top: 40px; }
   .people-note{
     margin-top: 30px;
     padding: 18px 20px;
@@ -404,22 +439,51 @@
   }
   .join-box .btn-solid:hover{ background: var(--eggshell-deep); }
 
-  /* ---------- NEWS ---------- */
+  /* ---------- NEWS / TALKS ---------- */
   .news-list{ list-style: none; }
   .news-item{
-    padding: 16px 0;
+    padding: 18px 0;
     border-top: 1px solid var(--sage-line);
-    font-size: 15px;
-    display: flex;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 18px;
+    align-items: start;
   }
   .news-item:last-child{ border-bottom: 1px solid var(--sage-line); }
   .news-tag{
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
+    letter-spacing: 0.06em;
     color: var(--sage-mid);
     white-space: nowrap;
     padding-top: 3px;
+    text-transform: uppercase;
+  }
+  .news-body .news-title{
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+  .news-byline{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .news-byline .presenter{
+    color: var(--sage-deep);
+    font-weight: 600;
+  }
+  .news-link{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    white-space: nowrap;
+    padding-top: 3px;
+  }
+  @media (max-width: 640px){
+    .news-item{ grid-template-columns: 1fr; gap: 6px; }
+    .news-link{ padding-top: 4px; }
   }
 
   /* ---------- FOOTER ---------- */
@@ -511,7 +575,6 @@
       <a href="#people">People</a>
       <a href="#publications">Publications</a>
       <a href="#join">Join Us</a>
-      <a href="#news">News</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -560,7 +623,6 @@
 
   <div class="hero-inner">
     <span class="eyebrow">Computational Linguistics for Understanding &amp; Explanation</span>
-    <h1>Finding the <span class="full-name">clues</span> language leaves in the mind, and in society.</h1>
     <p class="hero-tagline">
       The CLUE Lab studies how people comprehend language — and how that comprehension can be modeled, measured, and put to use — by combining computational tools with the cognitive science of language.
     </p>
@@ -571,20 +633,87 @@
   </div>
 </header>
 
+<section id="news" class="news-band reveal">
+  <div class="wrap">
+    <div class="news-band-head">
+      <span class="eyebrow">News &amp; Media</span>
+      <h2>Recent news</h2>
+    </div>
+    <ul class="news-list">
+      <li class="news-item">
+        <span class="news-tag">Talk</span>
+        <div class="news-body">
+          <div class="news-title">Hannah investigates LLMs in English, Norwegian, Greek to examine whether they have event knowledge representations (yes but depends on the language)</div>
+          <div class="news-byline"><span class="presenter">CogSci 2026 at Rio de Janeiro, Brazil</span> · July 24</div>
+        </div>
+        <span class="news-link"><a href="https://escholarship.org/uc/item/8ks579mq">Paper →</a></span>
+      </li>
+      <li class="news-item">
+        <span class="news-tag">Poster</span>
+        <div class="news-body">
+          <div class="news-title">Korey introduces a set of novel metrics to quantify discourse cohesion</div>
+          <div class="news-byline"><span class="presenter">CLA 2026 at Calgary, Alberta</span> · June 17</div>
+        </div>
+        <span class="news-link"><a href="https://event.fourwaves.com/cla-acl/abstracts/6b54a614-bcf5-4fd0-9b77-92ed159a18a3">Abstract →</a></span>
+      </li>
+      
+        <li class="news-item">
+        <span class="news-tag">Talk</span>
+        <div class="news-body">
+          <div class="news-title">Sali evaluates French LLMs across diverse genres and regional varieties and demonstrates their poor performance on Quebec French</div>
+          <div class="news-byline"><span class="presenter">SULC 2026 at University of Toronto Scarborough</span> · February 27</div>
+        </div>
+        <span class="news-link"><a href="#">Abstract →</a></span>
+      </li>
+      
+        <li class="news-item">
+        <span class="news-tag">Milestone</span>
+        <div class="news-body">
+          <div class="news-title">Hannah successfully completes her MA in Linguistics at the University of Toronto and accepts a CS PhD position at the University of Antwerp</div>
+          <div class="news-byline">October 30</div>
+        </div>
+        <span class="news-link"><a href="https://www.uantwerpen.be/en/staff/hannah-rognan_28746/research/">PhD project →</a></span>
+      </li>
+      
+       <li class="news-item">
+        <span class="news-tag">Poster</span>
+        <div class="news-body">
+          <div class="news-title">Hannah demonstrates English and Norwegian LLMs have similar performance in predicting temporal connectives during MLM</div>
+          <div class="news-byline"><span class="presenter">AMLaP 2025 at Prague, Czechia</span> · September 5</div>
+        </div>
+        <span class="news-link"><a href="https://amlap2025.ff.cuni.cz/poster-sessions/">Abstract →</a></span>
+      </li>
+      
+      <!--
+      <li class="news-item">
+        <span class="news-tag">Feature</span>
+        <div class="news-body">
+          <div class="news-title">UofT Data Sciences Institute: Catalyst Grant fuels community-powered AI to tackle harmful content on social media</div>
+          <div class="news-byline">Lab news</div>
+        </div>
+        <span class="news-link"><a href="https://datasciences.utoronto.ca/data-sciences-institute-catalyst-grant-fuels-u-of-t-researchers-community-powered-ai-to-tackle-harmful-content-on-social-media/">Read →</a></span>
+      </li>
+      -->
+    </ul>
+  </div>
+</section>
+
 <section id="about" class="reveal">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">About</span>
-      <h2>Our mission</h2>
-      <p>CLUE Lab takes a theory-driven, experimental approach to language science — integrating computational linguistics with the cognitive science of language to understand how humans use, process, and are affected by language, and to explain what our models reveal.</p>
+      <h2>Our approach</h2>
+      <p>CLUE Lab takes a theory-driven, experimental approach to language science — integrating computational linguistics with the cognitive science of language to examine how humans use and understand language, and to explain what our models reveal.</p>
     </div>
     <div class="about-grid">
-      <img class="pi-photo" src="https://sbhattasali.github.io/images/shohini_umd_square.jpg" alt="Photo of Dr. Shohini Bhattasali">
+      <img class="pi-photo" src="images/Bhattasali.jpg" alt="Photo of Dr. Shohini Bhattasali">
       <div class="about-text">
+        <div class="pi-name" style="margin-bottom:2px; font-size:13px; color:var(--sage-mid); font-family:'IBM Plex Mono', monospace; text-transform:uppercase; letter-spacing:0.1em;">Meet the director</div>
         <div class="pi-name">Shohini Bhattasali, PhD</div>
-        <div class="pi-title">Principal Investigator · Assistant Professor, Department of Language Studies &amp; Department of Linguistics, University of Toronto Scarborough</div>
-        <p>Dr. Bhattasali received her PhD in Linguistics from Cornell University (2019, graduate minor in Cognitive Science), advised by John Hale. She was subsequently a postdoctoral researcher at the University of Maryland's Department of Linguistics and Institute for Advanced Computer Studies, working primarily with Philip Resnik.</p>
-        <p>Her research sits at the intersection of computational linguistics and the cognitive science of language, and has been supported by grants including a UofT Data Sciences Institute Catalyst Grant.</p>
+        <div class="pi-title">Principal Investigator</div>
+        <p>Dr. Shohini Bhattasali is an Assistant Professor in the Department of Language Studies at the University of Toronto Scarborough, with a cross-appointment in the UTSG Department of Linguistics. She directs the Computational Linguistics Understanding and Exploration (CLUE) Lab and is part of the broader tri-campus <a href="https://www.uc.utoronto.ca/cognitive-science-research-community-corc"> Cognitive Science Research Community </a>, <a href="https://datasciences.utoronto.ca/">Data Sciences Institute</a>, and <a href="https://munkschool.utoronto.ca/ai/centre-south-asian-studies">Center for South Asian Studies</a>.</p>
+        <p>Dr. Bhattasali is a linguist whose research lies at the intersection of computational linguistics and neurolinguistics, with a focus on naturalistic comprehension in a variety of languages such as English, Bangla, and Hindi. She integrates computational tools with insights from the cognitive science of language to examine how humans use and understand language in their daily lives. She has published articles in international conference proceedings and top-tier journals such as <i>Language, Cognition, and Neuroscience</i>, <i>Journal of Memory and Language</i>, and <i>Annual Review of Linguistics</i>, and delivered conference presentations at international venues such as <i>Human Sentence Processing</i>, <i>Architectures and Mechanisms of Language Processing</i>, <i>Society for the Neurobiology of Language</i>, and <i>Cognitive Science Society</i>.</p>
+        <p>Bhattasali has been awarded the <a href="https://connaught.research.utoronto.ca/opportunities">Connaught New Researcher Award (2025)</a> and her work has been supported by grants from the Social Sciences and Humanities Research Council (Canada), the Office of Naval Research (US), and Laboratoires d'excellence (France). She received her MA in Linguistics in 2017 and PhD in <a href="https://linguistics.cornell.edu/">Linguistics from Cornell University</a> with a graduate minor in Cognitive Science, advised by <a href="https://cogsci.jhu.edu/directory/john-t-hale/">John Hale</a>. Subsequently, she was a postdoc at the University of Maryland's <a href="https://linguistics.umd.edu/">Department of Linguistics</a> and <a href="https://www.umiacs.umd.edu/">Institute for Advanced Computer Studies</a>, where she primarily worked with <a href="https://psresnik.github.io/">Philip Resnik</a>.</p>
         <p><a href="https://sbhattasali.github.io/docs/cv_august2023.pdf">Full CV (PDF) →</a></p>
       </div>
     </div>
@@ -595,28 +724,34 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Research</span>
-      <h2>Two lines of inquiry, one question</h2>
-      <p>How do humans use and understand language — and how can computational tools help us model, and improve, that process?</p>
+      <h2>Three lines of inquiry, one question</h2>
+      <p>How do humans use and understand language — and how can computational tools help us model that process?</p>
     </div>
-    <div class="theme-grid">
+    <div class="theme-grid theme-grid-3">
       <div class="theme-card">
-        <h3>Computational Neurolinguistics</h3>
-        <p>We use contemporary computational models to gain insight into language comprehension in the brain — sitting at the interface of natural language processing, psycholinguistics, and cognitive neuroscience. Current questions include how syntactic and semantic constraints shape top-down prediction during sentence processing, and how linguistic processing interacts with attention, memory, and cognitive control.</p>
+        <h3>Computational Neurolinguistics beyond English</h3>
+        <!-- <p>[Placeholder — replace with a short description of this project: what languages/populations are studied, methods used, and current status.]</p>
         <div class="projects-placeholder">
           <span class="eyebrow">Current projects</span>
           <div class="placeholder-item">— Add project name, short description, and status/funding here —</div>
-          <div class="placeholder-item">— Add project name, short description, and status/funding here —</div>
         </div>
-      </div>
+      </div> -->
       <div class="theme-card">
-        <h3>Computational Social Science</h3>
-        <p>We examine how linguistic patterns and features in real-world datasets can help uncover bias and misinformation, using NLP tools such as topic models and language models on text from domains like social media and public health repositories — aiming to help improve these systems.</p>
+        <h3>Knowledge representations within LLMs</h3>
+       <!-- <p>[Placeholder — replace with a short description of this project: what representations are being probed, methods used, and current status.]</p>
         <div class="projects-placeholder">
           <span class="eyebrow">Current projects</span>
           <div class="placeholder-item">— Add project name, short description, and status/funding here —</div>
+        </div>
+      </div> -->
+      <div class="theme-card">
+        <h3>Teaching Computational Linguistics at the graduate level</h3>
+       <!-- <p>[Placeholder — replace with a short description of this initiative: courses, curriculum development, or training resources involved.]</p>
+        <div class="projects-placeholder">
+          <span class="eyebrow">Current projects</span>
           <div class="placeholder-item">— Add project name, short description, and status/funding here —</div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
@@ -630,29 +765,72 @@
     </div>
     <div class="people-grid">
       <div class="person-card">
-        <img class="person-photo" src="https://sbhattasali.github.io/images/shohini_umd_square.jpg" alt="Photo of Shohini Bhattasali" style="object-fit:cover;">
+        <img class="person-photo" src="images/Bhattasali.jpg" alt="Photo of Shohini Bhattasali" style="object-fit:cover;">
         <div class="person-name">Shohini Bhattasali</div>
         <div class="person-role">Principal Investigator</div>
       </div>
       <div class="person-card">
-        <div class="person-photo">PHOTO</div>
-        <div class="person-name">Add name</div>
-        <div class="person-role">Add role, e.g. PhD student</div>
+              <img class="person-photo" src="images/MillerBoyle.jpg" alt="Photo of Korey Miller Boyle" style="object-fit:cover;">
+        <div class="person-name">Korey Miller-Boyle</div>
+        <div class="person-role">MA student</div>
       </div>
       <div class="person-card">
         <div class="person-photo">PHOTO</div>
-        <div class="person-name">Add name</div>
-        <div class="person-role">Add role, e.g. RA</div>
+        <div class="person-name">Sophia Davis Morris</div>
+        <div class="person-role">Undergraduate RA</div>
       </div>
       <div class="person-card">
         <div class="person-photo">PHOTO</div>
-        <div class="person-name">Add name</div>
-        <div class="person-role">Add role</div>
+        <div class="person-name">Shubhra Rashmi</div>
+        <div class="person-role">Undergraduate RA</div>
       </div>
     </div>
+
+    <h3 class="people-subhead">Lab alums</h3>
+    <div class="people-grid">
+    <div class="person-card">
+	    <img class="person-photo" src="images/Rognan.jpg" alt="Photo of Hannah Rognan" style="object-fit:cover;">
+        <div class="person-name">Hannah Rognan</div>
+        <div class="person-role">MA student (2025); subsequent position: CS PhD at University of Antwerp</div>
+      </div>
+      <div class="person-card">
+	    <img class="person-photo" src="images/Leye.jpg" alt="Photo of Salimata Leye" style="object-fit:cover;">
+        <div class="person-name">Salimata Leye</div>
+        <div class="person-role">Undergraduate RA (2026); subsequent position: Data scientist at Bell Canada</div>
+      </div>
+    </div>
+
+    <h3 class="people-subhead">Lab collaborators</h3>
+    <div class="people-grid">
+      <div class="person-card">
+        <div class="person-photo">PHOTO</div>
+        <div class="person-name">Myrto Grigoroglou</div>
+        <div class="person-role">Add affiliation &amp; collaboration topic</div>
+      </div>
+      <div class="person-card">
+        <div class="person-photo">PHOTO</div>
+        <div class="person-name">Dave Kush</div>
+        <div class="person-role">Add affiliation &amp; collaboration topic</div>
+      </div>
+            <div class="person-card">
+        <div class="person-photo">PHOTO</div>
+        <div class="person-name">Philip Resnik</div>
+        <div class="person-role">Add affiliation &amp; collaboration topic</div>
+      </div>
+      
+    <div class="person-card">
+        <div class="person-photo">PHOTO</div>
+        <div class="person-name">Chiebuka Ohams</div>
+        <div class="person-role">Add affiliation &amp; collaboration topic</div>
+      </div>
+    </div>
+
+<!--
     <div class="people-note">
-      Duplicate the <code>.person-card</code> block to add each member (current members, plus an "Alumni" subheading for past members and where they went — useful for both prospective students and grant reviewers).
+      Duplicate the <code>.person-card</code> block within each grid to add members, alums (with year and current placement), or collaborators (with affiliation).
     </div>
+    -->
+    
   </div>
 </section>
 
@@ -661,9 +839,20 @@
     <div class="section-head">
       <span class="eyebrow">Publications</span>
       <h2>Selected publications</h2>
-      <p>For a complete list, see the full <a href="https://sbhattasali.github.io/docs/cv_august2023.pdf">CV</a> or <a href="https://scholar.google.com/citations?user=UKCKPV0AAAAJ&hl=en">Google Scholar</a>.</p>
+      <p>For a complete list, please see <a href="https://scholar.google.com/citations?user=UKCKPV0AAAAJ&hl=en">Google Scholar</a>.</p>
     </div>
     <ul class="pub-list">
+      
+        <li class="pub-item">
+        <div class="pub-title">A predictive coding model for online sentence processing</div>
+        <div class="pub-authors">Chiebuka Ohams, Sathvik Nair, <span class="pi">Shohini Bhattasali</span>, Philip Resnik </div>
+    <div class="pub-venue">Journal of Memory and Language, 146, 104705</div>
+        <div class="pub-links">
+          <a href="https://www.sciencedirect.com/science/article/pii/S0749596X25000981">paper</a>
+          <a href="https://github.com/Chief-Buka/tPC-LM">data</a>
+        </div>
+      </li> 
+      
       <li class="pub-item">
         <div class="pub-title">Le Petit Prince multilingual naturalistic fMRI corpus</div>
         <div class="pub-authors">Jixing Li, <span class="pi">Shohini Bhattasali</span>, Shulin Zhang, Berta Franzluebbers, Wen-Ming Luh, R. Nathan Spreng, Jonathan Brennan, Yiming Yang, Christophe Pallier, John Hale</div>
@@ -682,18 +871,7 @@
           <a href="https://doi.org/10.5061/dryad.nvx0k6dv0">data</a>
         </div>
       </li>
-      <li class="pub-item">
-        <div class="pub-title">Neural correlates of object-extracted relative clause processing across English and Chinese</div>
-        <div class="pub-authors">Donald Dunagan, Milos Stanojevic, Maximin Coavoux, Shulin Zhang, <span class="pi">Shohini Bhattasali</span>, Jixing Li, Jonathan Brennan, John Hale</div>
-        <div class="pub-venue">Neurobiology of Language</div>
-        <div class="pub-links"><a href="https://doi.org/10.1162/nol_a_00110">paper</a></div>
-      </li>
-      <li class="pub-item">
-        <div class="pub-title">Neurocomputational models of language processing</div>
-        <div class="pub-authors">John Hale, Luca Campanelli, Jixing Li, <span class="pi">Shohini Bhattasali</span>, Christophe Pallier, Jonathan Brennan</div>
-        <div class="pub-venue">Annual Review of Linguistics, 8(1), 427–446</div>
-        <div class="pub-links"><a href="https://www.annualreviews.org/doi/abs/10.1146/annurev-linguistics-051421-020803">paper</a></div>
-      </li>
+
     </ul>
   </div>
 </section>
@@ -705,60 +883,40 @@
       <h2>Grants &amp; support</h2>
     </div>
     <ul class="funding-list">
+    
+        <li class="funding-item">
+        <span class="funding-year">2025</span>
+        <div class="funding-detail"><strong>Insight Development Grant</strong> — Social Science & Humanities Research Council (SSHRC). <i>A Computational Approach to Narratives: Using Large Language Models to Analyze Discourse Coherence. </i></div> 
+      </li>
+      
       <li class="funding-item">
         <span class="funding-year">2023</span>
-        <div class="funding-detail"><strong>Catalyst Grant</strong> — UofT Data Sciences Institute. Community-powered AI to identify and counter harmful content on social media. <a href="https://datasciences.utoronto.ca/data-sciences-institute-catalyst-grant-fuels-u-of-t-researchers-community-powered-ai-to-tackle-harmful-content-on-social-media/">Read more →</a></div>
+        <div class="funding-detail"><strong>Catalyst Grant</strong> — UofT Data Sciences Institute. <i>Community-powered AI to identify and counter harmful content on social media.</i></div>
       </li>
-      <li class="funding-item">
-        <span class="funding-year">—</span>
-        <div class="funding-detail" style="color:var(--sage-mid); font-style:italic;">Add additional grants: funder, role (PI/Co-I), amount, and dates.</div>
-      </li>
+
     </ul>
   </div>
 </section>
-
+ 
 <section id="join" class="reveal">
   <div class="wrap">
     <div class="join-box">
       <div>
         <span class="eyebrow">Join the lab</span>
         <h2>We're looking for curious, careful researchers.</h2>
-        <p>CLUE Lab welcomes graduate applicants through the UofT Linguistics and Computational Linguistics programs, as well as undergraduate research assistants at UTSC. We value strong quantitative or programming skills, curiosity about language and the mind, and careful experimental practice.</p>
+        <p>CLUE Lab welcomes graduate applicants through the Depart of Linguistics, as well as undergraduate research assistants at UTSC. We value strong quantitative or programming skills, curiosity about language and the mind, and careful experimental practice.</p>
       </div>
       <div>
         <ul class="join-list">
-          <li>Prospective graduate students: email Dr. Bhattasali with your CV and research interests before applying to the program</li>
-          <li>Undergraduate RAs: openings posted here each term</li>
-          <li>Currently recruiting: <em>update this line each term</em></li>
+          <li>Prospective graduate students: TBD</li>
+          <li>Undergraduate RAs: TBD</li>
+          <li>Postdocs: TBD</li>
         </ul>
         <div style="margin-top:22px;">
           <a href="mailto:shohini.bhattasali@utoronto.ca?subject=CLUE%20Lab%20Inquiry" class="btn btn-solid">Email the lab</a>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="news" class="reveal">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">News &amp; Media</span>
-      <h2>Recent news</h2>
-    </div>
-    <ul class="news-list">
-      <li class="news-item">
-        <span class="news-tag">FEATURE</span>
-        <span><a href="https://datasciences.utoronto.ca/data-sciences-institute-catalyst-grant-fuels-u-of-t-researchers-community-powered-ai-to-tackle-harmful-content-on-social-media/">UofT Data Sciences Institute: Catalyst Grant fuels community-powered AI to tackle harmful content on social media</a></span>
-      </li>
-      <li class="news-item">
-        <span class="news-tag">Q&amp;A</span>
-        <span><a href="https://www.utsc.utoronto.ca/vpdean/5q-shohini-bhattasali-assistant-professor-language-studies">UTSC Vice-Principal Academic &amp; Dean: 5Q with Shohini Bhattasali</a></span>
-      </li>
-      <li class="news-item">
-        <span class="news-tag">PROFILE</span>
-        <span><a href="http://utlinguistics.blogspot.com/2022/08/newest-faculty-member-shohini-bhattasali.html">UofT Linguistics blog: Newest Faculty Member, Shohini Bhattasali</a></span>
-      </li>
-    </ul>
   </div>
 </section>
 
